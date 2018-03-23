@@ -2,12 +2,15 @@ print 'Text?: '
 
 text = gets.chomp
 
-print 'Pattern?: '
-
-pattern = gets.chomp
-
-regexp = Regexp.new(pattern)
-matches = text.scan(regexp)
+begin
+  print 'Pattern?: '
+  pattern = gets.chomp
+  regexp = Regexp.new(pattern)
+  matches = text.scan(regexp)
+rescue RegexpError => e
+  puts "Invalid pattern: #{e.message}"
+  retry
+end
 
 if matches.size > 0
   puts "Matched: #{matches.join(', ')}"
